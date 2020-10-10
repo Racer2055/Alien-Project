@@ -10,6 +10,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     """ Overall class to manage game assets and behavior."""
@@ -28,7 +29,9 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         # Create an instance to store game statictics 
+        #      and create a scoreboard
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -127,6 +130,9 @@ class AlienInvasion:
         
         self.aliens.draw(self.screen)
 
+        # Draw the score information
+        self.sb.show_score()
+        
         # Draw the play button if the game is inactive
         if not self.stats.game_active:
             self.play_button.draw_button()
@@ -206,7 +212,7 @@ class AlienInvasion:
 
             # Reset the game settings
             self.settings.initialize_dynamic_settings()
-            
+
             pygame.mouse.set_visible(False)
 
 
