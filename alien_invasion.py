@@ -132,7 +132,7 @@ class AlienInvasion:
 
         # Draw the score information
         self.sb.show_score()
-        
+
         # Draw the play button if the game is inactive
         if not self.stats.game_active:
             self.play_button.draw_button()
@@ -175,6 +175,11 @@ class AlienInvasion:
         """ Respond to bullet-alien collisions."""
         # Remove any bullet and aliens that have collided.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+            
         if not self.aliens:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
